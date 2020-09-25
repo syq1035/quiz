@@ -10,6 +10,7 @@ import Header from "./components/Header";
 import Home from "./pages/home";
 import Order from "./pages/order";
 import AddGoods from "./pages/addGoods";
+import "./pages/main.css";
 
 function App() {
   return (
