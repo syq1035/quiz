@@ -1,18 +1,30 @@
 import React, { Component } from "react";
+import axios from "axios";
 
 class Home extends Component {
   constructor() {
     super();
     this.state = {
-      goods: [
-        { name: "可乐", price: 2, unit: "瓶" },
-        { name: "可乐", price: 2, unit: "瓶" },
-        { name: "可乐", price: 2, unit: "瓶" },
-        { name: "可乐", price: 2, unit: "瓶" },
-        { name: "可乐", price: 2, unit: "瓶" }
-      ]
+      goods: []
     };
   }
+  componentDidMount() {
+    this.getAllGoods();
+  }
+
+  getAllGoods = () => {
+    axios
+      .get("http://localhost:8080/goodss")
+      .then(function(response) {
+        // this.setState({
+        //   goods: response,
+        // })
+        console.log(response);
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  };
   render() {
     return (
       <div className="home-main">
