@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, message } from "antd";
+import axios from "axios";
+
 class AddGoods extends Component {
   constructor() {
     super();
@@ -17,14 +19,23 @@ class AddGoods extends Component {
     });
   };
 
-  onFinish = values => {
-    console.log(this.state);
+  handleSubmit = () => {
+    axios
+      .post("http://localhost:8080/goods", {
+        ...this.state
+      })
+      .then(function(response) {
+        message.success("添加商品成功");
+      })
+      .catch(function(error) {
+        message.error("添加商品失败");
+      });
   };
   render() {
     return (
       <div className="addgoods-main">
         <h1>添加商品</h1>
-        <Form onSubmitCapture={this.onFinish}>
+        <Form onFinish={this.handleSubmit}>
           <Form.Item
             label="名称"
             name="name"
@@ -86,7 +97,7 @@ class AddGoods extends Component {
             <Input
               placeholder="URL"
               value={this.state.photo}
-              onChange={this.handleFieldChange}
+              onChange={e => this.handleFieldChange(e, "photo")}
             />
           </Form.Item>
           <Form.Item>
