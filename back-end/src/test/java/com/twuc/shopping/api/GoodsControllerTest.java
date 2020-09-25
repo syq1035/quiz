@@ -14,6 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -36,5 +37,19 @@ public class GoodsControllerTest {
         List<Goods> goodsList = goodsRepository.findAll();
         assertEquals(1, goodsList.size());
         assertEquals("可乐", goodsList.get(0).getName());
+    }
+
+    @Test
+    void should_return_goods_list() throws Exception {
+        Goods goods = Goods.builder().name("可乐").price(3).unit("瓶").photoUrl("photo.png").build();
+        goodsRepository.save(goods);
+        goods = Goods.builder().name("苹果").price(3).unit("个").photoUrl("photo.png").build();
+        goodsRepository.save(goods);
+        mockMvc.perform(get("/goodss")).andExpect(status().isOk());
+
+        List<Goods> goodsList = goodsRepository.findAll();
+        assertEquals(2, goodsList.size());
+        assertEquals("可乐", goodsList.get(0).getName());
+        assertEquals("苹果", goodsList.get(1).getName());
     }
 }
