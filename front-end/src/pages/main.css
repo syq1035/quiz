@@ -5,3 +5,17 @@
   margin: 10vh auto;
   padding: 50px;
 }
+
+.home-main {
+  padding: 50px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.goods-item {
+  width: 200px;
+  height: 250px;
+  margin: 50px;
+  border: 1px solid black;
+}
