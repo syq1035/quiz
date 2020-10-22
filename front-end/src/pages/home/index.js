@@ -15,13 +15,12 @@ class Home extends Component {
   getAllGoods = () => {
     axios
       .get("http://localhost:8080/goodss")
-      .then(function(response) {
-        // this.setState({
-        //   goods: response,
-        // })
-        console.log(response);
+      .then((res) =>{
+        this.setState({
+          goods: res.data,
+        })
       })
-      .catch(function(error) {
+      .catch((error) => {
         console.log(error);
       });
   };
