@@ -6,7 +6,7 @@
   padding: 50px;
 }
 
-.home-main {
+.goodsList {
   padding: 50px;
   display: flex;
   flex-direction: row;
@@ -18,4 +18,19 @@
   height: 250px;
   margin: 50px;
   border: 1px solid black;
+  background-color: #fff;
+}
+
+.goods-item .img {
+  width: 150px;
+  height: 150px;
+}
+
+.cart {
+  float: right;
+  margin-right: 100px;
+}
+
+.cart-btn {
+  margin-left: 100px;
 }

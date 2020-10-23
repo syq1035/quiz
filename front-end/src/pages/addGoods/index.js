@@ -97,7 +97,7 @@ class AddGoods extends Component {
             <Input
               placeholder="URL"
               value={this.state.photo}
-              onChange={e => this.handleFieldChange(e, "photo")}
+              onChange={e => this.handleFieldChange(e, "photoUrl")}
             />
           </Form.Item>
           <Form.Item>

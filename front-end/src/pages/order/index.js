@@ -25,7 +25,7 @@ class Order extends Component {
     {
       title: '单价',
       dataIndex: 'price',
-      key: 'age',
+      key: 'price',
     },
     {
       title: '数量',
@@ -43,7 +43,7 @@ class Order extends Component {
       render: (text, record) => (
         <Button type="primary" danger onClick={this.deleteOrder.bind(this, record.id)}>删除</Button>
       )
-    },
+    }
   ]
 
   componentDidMount() {
@@ -79,7 +79,12 @@ class Order extends Component {
   render() {
     return (
       <div className="order-main">
-        <Table dataSource={this.state.orders} columns={this.columns} />;
+        {
+          this.state.orders.length ?
+            <Table dataSource={this.state.orders} columns={this.columns} pagination={false} />
+            : <p>暂无订单，返回商城页面继续购买</p>
+        }
+        
       </div>
     )
   }
