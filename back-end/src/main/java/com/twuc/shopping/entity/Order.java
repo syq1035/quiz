@@ -8,18 +8,18 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "`order`")
+@Table(name = "order")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderEntity {
+public class Order {
 
     @Id
     @GeneratedValue
     Integer id;
 
-    Integer amount;
+    Integer count;
 
     @ManyToOne
     @JoinColumn(name = "goods_id")
