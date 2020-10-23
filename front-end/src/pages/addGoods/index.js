@@ -9,7 +9,7 @@ class AddGoods extends Component {
       name: "",
       price: "",
       unit: "",
-      photo: ""
+      photoUrl: ""
     };
   }
 
@@ -26,11 +26,22 @@ class AddGoods extends Component {
       })
       .then((res) => {
         message.success("添加商品成功");
+        this.resetFeild()
       })
       .catch((error) => {
         message.error("添加商品失败");
       });
   };
+
+  resetFeild = () => {
+    this.setState({
+      name: "",
+      price: "",
+      unit: "",
+      photoUrl: ""
+    })
+  }
+
   render() {
     return (
       <div className="addgoods-main">
