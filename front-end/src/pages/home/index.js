@@ -39,9 +39,42 @@ class Home extends Component {
       }
     })
     if (has) {
-      cart[curIndex].count = cart[curIndex].count +1
+      cart[curIndex].count = cart[curIndex].count + 1
     } else {
       cart.push({name: product.name, id: product.id, count: 1})
+    }
+    this.setState({
+      cart
+    })
+  }
+
+  deleteProduct = (id) => {
+    let { cart } = this.state
+    let curIndex = -1
+    cart.forEach((item, index) => {
+      if (item.id === id) {
+        curIndex = index
+      }
+    })
+    cart = [...cart.slice(0, curIndex), ...cart.slice(curIndex + 1, cart.length)]
+    this.setState({
+      cart
+    })
+  }
+
+  changeProductCount = (id, operation) => {
+    let { cart } = this.state
+    let curIndex = -1
+    cart.forEach((item, index) => {
+      if (item.id === id) {
+        curIndex = index
+      }
+    })
+    const count = cart[curIndex].count
+    if (operation === 'add') {
+      cart[curIndex].count = count + 1
+    } else {
+      cart[curIndex].count = (count - 1) > 0 ? (count - 1) : 0
     }
     this.setState({
       cart
@@ -59,9 +92,9 @@ class Home extends Component {
       key: 'count',
       render: (text, record) => (
         <p>
-          <Button shape="circle" size="small" className="small-btn">+</Button>
+          <Button shape="circle" size="small" className="small-btn" onClick={this.changeProductCount.bind(this, record.id, 'add')}>+</Button>
           {record.count}
-        <Button shape="circle" size="small" className="small-btn">-</Button>
+        <Button shape="circle" size="small" className="small-btn" onClick={this.changeProductCount.bind(this, record.id, 'reduce')}>-</Button>
         </p>
       )
     },
@@ -69,7 +102,7 @@ class Home extends Component {
       title: "",
       key: "action",
       render: (text, record) => (
-        <Button type="text" danger><DeleteOutlined /></Button>
+        <Button type="text" danger onClick={this.deleteProduct.bind(this, record.id)}><DeleteOutlined /></Button>
       )
     }
   ]
@@ -83,8 +116,7 @@ class Home extends Component {
             <Table dataSource={this.state.cart} columns={this.cartColumns} pagination={false} />
             : <p>暂无商品，请添加商品</p>
         }
-        
-      </div>
+      </div> 
     )
   }
   confirmOrder = () => {
@@ -95,10 +127,10 @@ class Home extends Component {
     axios.post("http://localhost:8080/order", {
         cart: this.state.cart
       })
-      .then(function(response) {
+      .then((res) => {
         message.success("下单成功");
       })
-      .catch(function(error) {
+      .catch((error) => {
         message.error("下单失败");
       });
   }

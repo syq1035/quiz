@@ -24,10 +24,10 @@ class AddGoods extends Component {
       .post("http://localhost:8080/goods", {
         ...this.state
       })
-      .then(function(response) {
+      .then((res) => {
         message.success("添加商品成功");
       })
-      .catch(function(error) {
+      .catch((error) => {
         message.error("添加商品失败");
       });
   };
